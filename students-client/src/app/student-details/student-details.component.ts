@@ -18,9 +18,7 @@ export class StudentDetailsComponent implements OnInit {
   b = Boolean;
 
   private _student?: Student;
-  public get student(): Student | undefined {
-    return this._student;
-  }
+  public get student(): Student | undefined { return this._student; }
   @Input()
   public set student(value: Student | undefined) {
     this._student = value;
@@ -44,20 +42,12 @@ export class StudentDetailsComponent implements OnInit {
   studentForm: FormGroup = new FormGroup({});
 
   private _totalAbsenceDays?: number;
-  public get totalAbsenceDays(): number | undefined {
-    return this._totalAbsenceDays;
-  }
-  public set totalAbsenceDays(v: number) {
-    this._totalAbsenceDays = v;
-  }
+  public get totalAbsenceDays(): number | undefined { return this._totalAbsenceDays; }
+  public set totalAbsenceDays(v: number) { this._totalAbsenceDays = v; }
 
   private _absenceDate?: Date;
-  public get absenceDate(): Date | undefined {
-    return this._absenceDate;
-  }
-  public set absenceDate(v: Date) {
-    this._absenceDate = v;
-  }
+  public get absenceDate(): Date | undefined { return this._absenceDate; }
+  public set absenceDate(v: Date) { this._absenceDate = v; }
 
   @Output()
   onSaveNewStudent: EventEmitter<Student> = new EventEmitter();
@@ -69,14 +59,10 @@ export class StudentDetailsComponent implements OnInit {
     this.onSaveNewStudent.emit(this._student);
   }
 
-  countAbsenceDays(id: number): number {
-    return this._studentService.countAbsenceDays(id);
-  }
+  countAbsenceDays(id: number): number { return this._studentService.countAbsenceDays(id); }
 
   constructor(private _studentService: StudentService) { }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
 }

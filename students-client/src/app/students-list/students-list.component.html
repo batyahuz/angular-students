@@ -1,4 +1,11 @@
 <div>ALL THE STUDENTS:😀</div>
+<br>
+<input type="checkbox" #chb (change)="showActiveStudents(chb.checked)" />Show Active Students
+<br>
+<div>
+    <label for="searchByName">Search By Name:</label>
+    <input id="searchByNameF" type="text" #seach (change)="searchByName(seach.value)" />
+</div>
 <ul class="list-group">
     <li class="list-group-item" *ngFor="let student of students"
         [ngClass]="{ 'notActive': !student.isActive , 'diligent': student.average > 90 }">

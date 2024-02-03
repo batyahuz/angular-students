@@ -37,6 +37,11 @@ export class ObservableDemoComponent {
   }
 
   ngOnInit(): void {
-    this.students = this._studentService.getStudents();
+    this._studentService.getStudentsFromServer().subscribe(data => {
+      this.students = data;
+    }, error => {
+      console.log(error);
+      alert("error while loading students");
+    })
   }
 }
