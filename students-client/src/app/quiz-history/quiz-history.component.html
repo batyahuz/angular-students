@@ -1,0 +1,11 @@
+<div>average = {{this.getAverage()}}</div>
+<ul class="list-group">
+    <li *ngFor="let quiz of this.quizes" class="lis-group-item">
+        <div class="row">
+            <div class="col-1">{{quiz.id}}</div>
+            <div class="col-2">{{quiz.date}}</div>
+            <div class="col-3">{{quiz.subject}}</div>
+            <div class="col-3">{{quiz.mark}}</div>
+        </div>
+    </li>
+</ul>
