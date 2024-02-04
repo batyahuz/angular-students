@@ -24,7 +24,8 @@ export class StudentDetailsComponent implements OnInit {
     this._student = value;
     if (this.student != undefined) {
       this.studentForm = new FormGroup({
-        "id": new FormControl(this.student.id, [Validators.required, Validators.minLength(3)]),
+        "id": new FormControl(this.student.id),
+        "tz": new FormControl(this.student.tz, [Validators.required, Validators.minLength(3)]),
         "name": new FormControl(this.student.name, [Validators.required, Validators.minLength(2)]),
         "address": new FormControl(this.student.address, [Validators.required]),
         "phone": new FormControl(this.student.phone, [Validators.required]),
@@ -36,6 +37,7 @@ export class StudentDetailsComponent implements OnInit {
       });
       console.log("this.student.isActive", this.student.isActive);
       console.log("this.student.dateLeft", this.student.dateLeft);
+      console.log("this.student.id", this.student.id);
     }
   }
 

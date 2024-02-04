@@ -4,6 +4,7 @@ import { Quiz } from "./quiz.model";
 
 export class Student {
     public id?: number;
+    public tz?: number;
     public name?: string;
     public address?: string;
     public phone?: string;

@@ -4,11 +4,11 @@
 <br>
 <div>
     <label for="searchByName">Search By Name:</label>
-    <input id="searchByNameF" type="text" #seach (change)="searchByName(seach.value)" />
+    <input id="searchByNameF" type="text" #seach (input)="searchByName(seach.value)" />
 </div>
 <ul class="list-group">
     <li class="list-group-item" *ngFor="let student of students"
-        [ngClass]="{ 'notActive': !student.isActive , 'diligent': student.average > 90 }">
+        [ngClass]="{ 'notActive': !student.isActive , 'diligent': student.average > 90, 'studentActive': student.isActive }">
         <div class="row" (focus)="onFocusStudent(student)">
             <div class="col-0.5"> ✔ {{student.id}}. </div>
             <div class="col-2"> {{student.name}} </div>

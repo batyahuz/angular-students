@@ -19,7 +19,9 @@ export class StudentsListComponent implements OnInit {
   selectedStudent: Student | undefined;
 
   addStudent() {
-    this.showDetails(new Student());
+    var newStudent: Student = new Student();
+    newStudent.id = -1;
+    this.showDetails(newStudent);
   }
 
   deleteStudentById(studentId: number = 0) {
@@ -42,7 +44,7 @@ export class StudentsListComponent implements OnInit {
   updateStudentToList(studentToAdd: Student) {
     this.showDetails(null);
     this._studentService.addStudentToList(studentToAdd).subscribe(data => {
-      if (data)
+      if (data == true)
         this.students.push(studentToAdd);
       else
         this.students[this.students.findIndex(s => s.id == studentToAdd.id)] = studentToAdd;
@@ -72,8 +74,10 @@ export class StudentsListComponent implements OnInit {
     }*/
     //???????????????????????????????????
     //TODO
+
     this.studentNames.push(name);
-    distinctUntilChanged()
+    console.log("this.studentNames=", this.studentNames);
+    distinctUntilChanged();
     this._studentService.getStudentsByName(name).pipe(debounceTime(1000)).subscribe(data => this.students = data);
   }
 

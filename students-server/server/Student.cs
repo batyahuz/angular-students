@@ -6,6 +6,7 @@ namespace WebApplication1
     public class Student
     {
         public int id { get; set; }
+        public int tz { get; set; }
         public string name { get; set; }
         public string address { get; set; }
         public string phone { get; set; }
@@ -16,6 +17,7 @@ namespace WebApplication1
         public int year { get; set; }
         public void CopyStudent(Student student)
         {
+            this.tz = student.tz;
             this.name = student.name;
             this.address = student.address;
             this.phone = student.phone;

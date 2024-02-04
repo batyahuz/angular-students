@@ -46,22 +46,28 @@ export class StudentService {
     }
 
     addStudentToList(student: Student): Observable<boolean> {
-        var res = this._http.post<boolean>("/api/", student);
-        if (res) this._students.push(student);
+        console.log("student.id=", student.id);
+
+        var res = this._http.post<boolean>("/api/Students/add", student);
+        var bool: boolean = false;
+        res.subscribe(b => bool = b);
+        if (bool) this._students.push(student);
         return res;
     }
 
     deleteStudentFromServerById(id: number): Observable<any> {
-        return this._http.delete(`/api/${id}`);
+        return this._http.delete(`/api/Students${id}`);
     }
 
     getStudentsByActive(isActive: boolean): Observable<Student[]> {
-        return this._http.get<Student[]>("/api/?active=" + isActive);
+        return this._http.get<Student[]>("/api/Students/active?isActive=" + isActive);
     }
 
     getStudentsByName(name: string): Observable<Student[]> {
-        return this._http.get<Student[]>("/api/name=" + name);
-    }
+        console.log("name=", name);
+
+        return this._http.get<Student[]>("/api/Students/name?name=" + name);
+    }//name == "" ? " " :
 
     private getStudentByIdFromServer(id: number): Student | undefined {
         if (this._students.length == 0)

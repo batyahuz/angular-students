@@ -2,19 +2,19 @@
     <div class="card-body">
         <form [formGroup]="studentForm">
             <div class="form-group">
-                <label for="id">student id:</label>
-                <input class="form-control" type="number" id="id" formControlName="id" name="id" />
-                <ng-container *ngIf="studentForm.controls['id'].errors">
-                    <div class="alert alert-danger" *ngIf="studentForm.controls['id'].errors['required']">
+                <label for="tz">student tz:</label>
+                <input class="form-control" type="number" id="tz" formControlName="tz" name="tz" />
+                <ng-container *ngIf="studentForm.controls['tz'].touched && studentForm.controls['tz'].errors">
+                    <div class="alert alert-danger" *ngIf="studentForm.controls['tz'].errors['required']">
                         This field is required</div>
-                    <div class="alert alert-danger" *ngIf="studentForm.controls['id'].errors['minlength']">
+                    <div class="alert alert-danger" *ngIf="studentForm.controls['tz'].errors['minlength']">
                         This field must contains at least 3 digits</div>
                 </ng-container>
             </div>
             <div class="form-group">
                 <label for="name">student name:</label>
                 <input class="form-control" type="text" id="name" formControlName="name" name="name" />
-                <ng-container *ngIf="studentForm.controls['name'].errors">
+                <ng-container *ngIf="studentForm.controls['name'].touched && studentForm.controls['name'].errors">
                     <div class="alert alert-danger" *ngIf="studentForm.controls['name'].errors['required']">
                         This field is required</div>
                     <div class="alert alert-danger" *ngIf="studentForm.controls['name'].errors['minlength']">
@@ -24,7 +24,7 @@
             <div class="form-group">
                 <label for="address">student address:</label>
                 <input class="form-control" type="text" id="address" formControlName="address" name="address" />
-                <ng-container *ngIf="studentForm.controls['address'].errors">
+                <ng-container *ngIf="studentForm.controls['address'].touched && studentForm.controls['address'].errors">
                     <div class="alert alert-danger" *ngIf="studentForm.controls['address'].errors['required']">
                         This field is required</div>
                 </ng-container>
@@ -32,7 +32,7 @@
             <div class="form-group">
                 <label for="phone">student phone:</label>
                 <input class="form-control" type="tel" id="phone" formControlName="phone" name="phone" />
-                <ng-container *ngIf="studentForm.controls['phone'].errors">
+                <ng-container *ngIf="studentForm.controls['phone'].touched && studentForm.controls['phone'].errors">
                     <div class="alert alert-danger" *ngIf="studentForm.controls['phone'].errors['required']">
                         This field is required</div>
                 </ng-container>
@@ -40,7 +40,7 @@
             <div class="form-group">
                 <label for="average">student average:</label>
                 <input class="form-control" type="number" id="average" formControlName="average" name="average" />
-                <ng-container *ngIf="studentForm.controls['average'].errors">
+                <ng-container *ngIf="studentForm.controls['average'].touched && studentForm.controls['average'].errors">
                     <div class="alert alert-danger" *ngIf="studentForm.controls['average'].errors['required']">
                         This field is required</div>
                     <div class="alert alert-danger" *ngIf="studentForm.controls['average'].errors['min']">
@@ -66,7 +66,7 @@
                         {{proffetional.description}}
                     </option>
                 </select>
-                <ng-container *ngIf="studentForm.controls['proffetional'].errors">
+                <ng-container *ngIf="studentForm.controls['proffetional'].touched && studentForm.controls['proffetional'].errors">
                     <div class="alert alert-danger" *ngIf="studentForm.controls['proffetional'].errors['required']">
                         This field is required</div>
                 </ng-container>
@@ -87,7 +87,7 @@
                     <i *ngSwitchCase="'studyYear.Third'"> 125 </i>
                     days
                 </ng-coteiner>
-                <ng-container *ngIf="studentForm.controls['year'].errors">
+                <ng-container *ngIf="studentForm.controls['year'].touched && studentForm.controls['year'].errors">
                     <div class="alert alert-danger" *ngIf="studentForm.controls['year'].errors['required']">
                         This field is required</div>
                 </ng-container>
