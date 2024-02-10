@@ -12,7 +12,7 @@ export class Student {
     public average: number;
     public dateLeft?: Date;
     public proffetional?: Proffetional;
-    public year?: Year;
+    public year?: string;
     public quizes?: Quiz[];
     public absences?: Absence[];
 
@@ -29,9 +29,3 @@ export class Student {
         return s;
     }
 };
-
-export enum Year {
-    First = 1,
-    Second,
-    Third
-}

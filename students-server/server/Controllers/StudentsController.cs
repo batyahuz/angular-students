@@ -24,13 +24,13 @@ namespace WebApplication1.Controllers
              new Proffetional { id = (int)P.Angular, name = (int)P.Angular, description = "Angular" }
         };
 
-        public static List<Student> STUDENTS = new()
+        public static List<Student> STUDENTS = new List<Student>
         {
-            new Student{ id=0, tz= 3258, name= "Avi",            address= "Ami 9",     phone= "03-6192341", isActive= true,  average= 95.5, proffetional= PROFFETIONALS[(int)P.Angular],  year= (int)Year.First },
-            new Student{ id=1, tz= 2433, name= "Yaakov",         address= "R Akiva 9", phone= "03-6192341", isActive= true,  average= 85.5, proffetional= PROFFETIONALS[(int)P.English],  year= (int)Year.Second },
-            new Student{ id=2, tz= 3265, name= "Haim Cohen",     address= "Ami 9",     phone= "03-6192341", isActive= true,  average= 99,   proffetional= PROFFETIONALS[(int)P.Math],     year= (int)Year.Third },
-            new Student{ id=3, tz= 433,  name="Yair Marom",      address= "Ami 9",     phone= "03-6192341", isActive= false, average= 100,  proffetional= PROFFETIONALS[(int)P.Angular],  year= (int)Year.Third ,   dateLeft= new DateTime(2023, 9, 20) },
-            new Student{ id=4, tz= 5682, name= "Meir Ben David", address= "Ami 9",     phone= "03-6192341", isActive= false, average= 95.5, proffetional= PROFFETIONALS[(int)P.English],  year= (int)Year.First,    dateLeft= new DateTime(2023, 10, 1) }
+            new Student{ tz= 3258, name= "Avi",            address= "Ami 9",     phone= "03-6192341", isActive= true,  average= 95.5, proffetional= PROFFETIONALS[(int)P.Angular],  year= "Year.First"},
+            new Student{ tz= 2433, name= "Yaakov",         address= "R Akiva 9", phone= "03-6192341", isActive= true,  average= 85.5, proffetional= PROFFETIONALS[(int)P.English],  year= "Year.Second" },
+            new Student{ tz= 3265, name= "Haim Cohen",     address= "Ami 9",     phone= "03-6192341", isActive= true,  average= 99,   proffetional= PROFFETIONALS[(int)P.Math],     year= "Year.Third"},
+            new Student{ tz= 433,  name="Yair Marom",      address= "Ami 9",     phone= "03-6192341", isActive= false, average= 100,  proffetional= PROFFETIONALS[(int)P.Angular],  year= "Year.Third",   dateLeft= new DateTime(2023, 9, 20) },
+            new Student{ tz= 5682, name= "Meir Ben David", address= "Ami 9",     phone= "03-6192341", isActive= false, average= 95.5, proffetional= PROFFETIONALS[(int)P.English],  year= "Year.First",    dateLeft= new DateTime(2023, 10, 1) }
         };
 
 
@@ -51,27 +51,26 @@ namespace WebApplication1.Controllers
         [HttpGet("name")]
         public ActionResult<IEnumerable<Student>> Get(string? name = "")
         {
-            return Ok(name == null || name == "" ? STUDENTS :
-                STUDENTS.Where(s => s.name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
-                );
+            if (name is null || name == "")
+                return STUDENTS;
+            else
+            return Ok(STUDENTS.Where(s => s.name is null || s.name.Equals(name)));
         }
 
         // POST api/<TasksController>
         [HttpPost("add")]
-        public ActionResult<bool> Post([FromBody] Student student)
+        public ActionResult<Student> Post([FromBody] Student? student)
         {
-            var index = STUDENTS.FindIndex(s => s.id == student.id);
-            if (index < 0)
+            if (STUDENTS.FindIndex(s => s.id == student.id) < 0)
             {
                 STUDENTS.Add(student);
-                return Ok(true);
+                return Ok(student);
             }
-            STUDENTS.Find(s => s.id == student.id)?.CopyStudent(student);
-            return Ok(false);
+            return Put(student.id, student);
         }
 
         // PUT api/<TasksController>/5
-        [HttpPut("{id}")]
+        [HttpPut("edit")]
         public ActionResult<Student> Put(int id, [FromBody] Student value)
         {
             Student? student = STUDENTS.Find(s => s.id == id);
@@ -84,7 +83,7 @@ namespace WebApplication1.Controllers
         }
 
         // DELETE api/<TasksController>/5
-        [HttpDelete("{id}")]
+        [HttpDelete("delete")]
         public IActionResult Delete(int id)
         {
             var student = STUDENTS.Find(s => s.id == id);

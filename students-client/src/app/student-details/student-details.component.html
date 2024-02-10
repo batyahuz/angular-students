@@ -74,17 +74,17 @@
             <div class="form-group">
                 <label for="year">student year:</label>
                 <br />
-                <input type="radio" name="year" formControlName="year" value="studyYear.First" />First
+                <input type="radio" name="year" formControlName="year" value="First" />First
                 <br />
-                <input type="radio" name="year" formControlName="year" value="studyYear.Second" />Second
+                <input type="radio" name="year" formControlName="year" value="Second" />Second
                 <br />
-                <input type="radio" name="year" formControlName="year" value="studyYear.Third" />Third
+                <input type="radio" name="year" formControlName="year" value="Third" />Third
                 <br />
-                <ng-coteiner *ngIf="studentForm.value['year']" [ngSwitch]="studentForm.value['year']">
+                <ng-coteiner [ngSwitch]="studentForm.value['year']">
                     You have to learn
-                    <i *ngSwitchCase="'studyYear.First'"> 100 </i>
-                    <i *ngSwitchCase="'studyYear.Second'"> 150 </i>
-                    <i *ngSwitchCase="'studyYear.Third'"> 125 </i>
+                    <i *ngSwitchCase="'First'"> 100 </i>
+                    <i *ngSwitchCase="'Second'"> 150 </i>
+                    <i *ngSwitchCase="'Third'"> 125 </i>
                     days
                 </ng-coteiner>
                 <ng-container *ngIf="studentForm.controls['year'].touched && studentForm.controls['year'].errors">

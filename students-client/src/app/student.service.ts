@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
-import { APP_PROFFETIONALS, P } from "./models/proffetional.model";
-import { Student, Year } from "./models/student.model";
-import { Observable, filter, map } from "rxjs";
+import { Student } from "./models/student.model";
+import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http"
 
 // const STUDENTS: Student[] = [{ id: 3258, name: "Avi", address: "Ami 9", phone: "03-6192341", isActive: true, average: 95.5, proffetional: APP_PROFFETIONALS[P.Angular], year: Year.First },
@@ -45,29 +44,31 @@ export class StudentService {
         return students;
     }
 
-    addStudentToList(student: Student): Observable<boolean> {
-        console.log("student.id=", student.id);
+    addStudentToList(student: Student): Observable<Student> {
+        console.log("addStudentToList: student.id=", student.id);
+        // if (this._students.find(s => s.id == student.id))
+        //     var res = this._http.put<boolean>("/api/Students/edit?id=" + student.id, student);
+        // else
+        return this._http.post<Student>("/api/Students/add", student);
+    }
 
-        var res = this._http.post<boolean>("/api/Students/add", student);
-        var bool: boolean = false;
-        res.subscribe(b => bool = b);
-        if (bool) this._students.push(student);
-        return res;
+    editStudentInList(student: Student): Observable<Student> {
+        console.log("editStudentInList: student.id=", student.id);
+        return this._http.put<Student>("/api/Students/edit?id=" + student.id, student);
     }
 
     deleteStudentFromServerById(id: number): Observable<any> {
-        return this._http.delete(`/api/Students${id}`);
+        return this._http.delete(`/api/Students/delete?id=${id}`);
     }
 
     getStudentsByActive(isActive: boolean): Observable<Student[]> {
         return this._http.get<Student[]>("/api/Students/active?isActive=" + isActive);
     }
 
-    getStudentsByName(name: string): Observable<Student[]> {
-        console.log("name=", name);
-
+    getStudentsByName(name: string = ""): Observable<Student[]> {
+        console.log("getStudentsByName: name=", name);
         return this._http.get<Student[]>("/api/Students/name?name=" + name);
-    }//name == "" ? " " :
+    }
 
     private getStudentByIdFromServer(id: number): Student | undefined {
         if (this._students.length == 0)

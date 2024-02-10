@@ -21,6 +21,22 @@ export class StudentsListComponent implements OnInit {
   addStudent() {
     var newStudent: Student = new Student();
     newStudent.id = -1;
+    // var newStudent: Student = {
+    //   "id": -1,
+    //     "tz": 111,
+    //     "name": "name",
+    //     "address": "address my :)",
+    //     "phone": "434134",
+    //     "isActive": true,
+    //     "average": 10.1,
+    //     "dateLeft": new Date(),
+    //     "proffetional": {
+    //       "id": 0,
+    //       "name": 0,
+    //       "description": "Angular"
+    //     },
+    //     "year": "First"
+    // };
     this.showDetails(newStudent);
   }
 
@@ -32,9 +48,6 @@ export class StudentsListComponent implements OnInit {
       console.log(error);
       alert("error has accured :(");
     });
-    // let index = this.students.indexOf(student);
-    // if (this.selectedStudent == student)
-    // this.students.splice(index, 1);
   }
 
   editStudent(student: Student) { this.showDetails(student); }
@@ -43,12 +56,18 @@ export class StudentsListComponent implements OnInit {
 
   updateStudentToList(studentToAdd: Student) {
     this.showDetails(null);
-    this._studentService.addStudentToList(studentToAdd).subscribe(data => {
-      if (data == true)
+    if (this.students.find(s => s.id == studentToAdd.id) == undefined) {
+      console.log("in add!! studentToAdd:", studentToAdd);
+      this._studentService.addStudentToList(studentToAdd).subscribe(data => {
         this.students.push(studentToAdd);
-      else
-        this.students[this.students.findIndex(s => s.id == studentToAdd.id)] = studentToAdd;
-    }, error => { console.log(error); alert("can't add :("); });
+      }, error => { console.log("error in updateStudentToList:", error); alert("can't add :("); });
+    }
+    else {
+      console.log("in edit!! studentToAdd:", studentToAdd);
+      this._studentService.editStudentInList(studentToAdd).subscribe((data) => {
+        this.students[this.students.findIndex(s => s.id == data.id)] = studentToAdd;
+      }, error => { console.log("error in updateStudentToList:", error); alert("can't edit :("); });
+    }
   }
 
   onFocusStudent(student: Student) { this.focusStudent.emit(student); }
@@ -75,10 +94,11 @@ export class StudentsListComponent implements OnInit {
     //???????????????????????????????????
     //TODO
 
-    this.studentNames.push(name);
-    console.log("this.studentNames=", this.studentNames);
-    distinctUntilChanged();
-    this._studentService.getStudentsByName(name).pipe(debounceTime(1000)).subscribe(data => this.students = data);
+    // this.studentNames.push(name);
+    // console.log("this.studentNames=", this.studentNames);
+    // distinctUntilChanged();
+    // this._studentService.getStudentsByName(name).pipe(debounceTime(1000)).subscribe(data => this.students = data);
+    this._studentService.getStudentsByName(name).subscribe(data => this.students = data)
   }
 
   constructor(private _studentService: StudentService) { }

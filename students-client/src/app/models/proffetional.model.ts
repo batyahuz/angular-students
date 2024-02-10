@@ -1,6 +1,6 @@
 export class Proffetional {
     id?: number;
-    name: P = P.Angular;
+    name?: P;
     description?: string;
 }
 

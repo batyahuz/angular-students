@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { APP_PROFFETIONALS, P, Proffetional } from '../models/proffetional.model';
-import { Student, Year } from '../models/student.model';
+import { Student } from '../models/student.model';
 import { StudentService } from '../student.service';
 
 @Component({
@@ -12,8 +12,6 @@ import { StudentService } from '../student.service';
 export class StudentDetailsComponent implements OnInit {
 
   proffetionals: Proffetional[] = APP_PROFFETIONALS;
-
-  studyYear = Year;
 
   b = Boolean;
 
@@ -38,6 +36,7 @@ export class StudentDetailsComponent implements OnInit {
       console.log("this.student.isActive", this.student.isActive);
       console.log("this.student.dateLeft", this.student.dateLeft);
       console.log("this.student.id", this.student.id);
+      console.log("this.student.year", this.student.year);
     }
   }
 
