@@ -17,6 +17,7 @@ export class Student {
     public absences?: Absence[];
 
     constructor() {
+        this.id = -1;
         this.isActive = true;
         this.average = 0;
     }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable, filter, from, interval, map } from 'rxjs';
-import { Student } from '../models/student.model';
-import { StudentService } from '../student.service';
+import { Student } from '../../students/models/student.model';
+import { StudentService } from '../../students/student.service';
 
 @Component({
   selector: 'observable-demo',
@@ -37,11 +37,9 @@ export class ObservableDemoComponent {
   }
 
   ngOnInit(): void {
-    this._studentService.getStudentsFromServer().subscribe((data) => {
-      this.students = data;
-    }, (error) => {
-      console.log(error);
-      alert("error while loading students");
-    })
+    this._studentService.getStudentsFromServer().subscribe({
+      next: (data) => { this.students = data; },
+      error: (error) => { console.log(error); alert("error while loading students"); }
+    });
   }
 }

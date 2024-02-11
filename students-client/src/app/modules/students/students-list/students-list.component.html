@@ -4,7 +4,7 @@
 <br>
 <div>
     <label for="searchByName">Search By Name:</label>
-    <input id="searchByNameF" type="text" #seach (input)="searchByName(seach.value)" />
+    <input id="searchByNameF" type="text" #seach (change)="searchByName(seach.value)" />
 </div>
 <ul class="list-group">
     <li class="list-group-item" *ngFor="let student of students"

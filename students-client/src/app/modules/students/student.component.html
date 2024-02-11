@@ -1,0 +1,2 @@
+<students-list (onfocusStudent)="showQuizes($event)"></students-list>
+<quiz-history *ngIf="student" class="col-4" [id]="student.id" [quizes]="student.quizes"></quiz-history>
