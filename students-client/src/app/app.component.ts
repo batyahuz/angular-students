@@ -1,5 +1,4 @@
 import { Component } from "@angular/core";
-import { Student } from "./modules/students/models/student.model";
 
 @Component({
     templateUrl: "./app.component.html",

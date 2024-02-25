@@ -70,9 +70,11 @@ export class StudentService {
         return this._http.get<Student[]>("/api/Students/name?name=" + name);
     }
 
-    private getStudentByIdFromServer(id: number): Student | undefined {
+    getStudentByIdFromServer(id: number | null): Student | undefined {
         if (this._students.length == 0)
             this.getStudentsFromServer().subscribe(data => this._students = data);
+        console.log("id in getStudentByIdFromServer ", id);
+
         return this._students.find(s => s.id == id);
     }
 

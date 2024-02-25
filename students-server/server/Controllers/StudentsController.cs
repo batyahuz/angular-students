@@ -54,7 +54,7 @@ namespace WebApplication1.Controllers
             if (name is null || name == "")
                 return STUDENTS;
             else
-            return Ok(STUDENTS.Where(s => s.name is null || s.name.Equals(name)));
+                return Ok(STUDENTS.Where(s => s.name is null || s.name.Equals(name)));
         }
 
         // POST api/<TasksController>

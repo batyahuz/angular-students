@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Student } from '../models/student.model';
 import { StudentService } from '../student.service';
 import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'students-list',
@@ -20,21 +21,30 @@ export class StudentsListComponent implements OnInit {
 
   private searchTerms = new Subject<string>();
 
-  addStudent() { this.showDetails(new Student()); }
+  addStudent() {
+    // this.showDetails(new Student());
+  }
 
   deleteStudentById(studentId: number = 0) {
     this._studentService.deleteStudentFromServerById(studentId).subscribe({
-      next: () => { this.showDetails(null); alert("student removed successfuly!"); },
+      next: () => {
+        this.students?.splice(this.students?.findIndex(x => x.id === studentId), 1);
+        // this.showDetails(null);
+        alert("student removed successfuly!");
+      },
       error: (error) => { console.log(error); alert("error has accured :("); }
     });
   }
 
-  editStudent(student: Student) { this.showDetails(student); }
+  editStudent(student: Student) {
+    this._router.navigate(['students/details', student.id]);
+    // this.showDetails(student);
+  }
 
-  showDetails(student: any) { this.selectedStudent = student; }
+  // showDetails(student: any) { this.selectedStudent = student; }
 
   updateStudentToList(studentToAdd: Student) {
-    this.showDetails(null);
+    // this.showDetails(null);
     if (this.students.find(s => s.id == studentToAdd.id) == undefined) {
       console.log("in add!! studentToAdd:", studentToAdd);
       this._studentService.addStudentToList(studentToAdd).subscribe({
@@ -60,11 +70,11 @@ export class StudentsListComponent implements OnInit {
   searchByName(name: string) { this.searchTerms.next(name); }
 
   listenToSearchByName(): void {
-    this.searchTerms.pipe(debounceTime(5000), distinctUntilChanged(),
+    this.searchTerms.pipe(debounceTime(1000), distinctUntilChanged(),
       switchMap((res) => this._studentService.getStudentsByName(res))).subscribe((res) => { this.students = res; });
   }
 
-  constructor(private _studentService: StudentService) { }
+  constructor(private _studentService: StudentService, private _router: Router) { }
 
   ngOnInit(): void {
     this.listenToSearchByName();

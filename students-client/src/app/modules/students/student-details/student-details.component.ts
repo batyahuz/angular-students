@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { APP_PROFFETIONALS, P, Proffetional } from '../models/proffetional.model';
 import { Student } from '../models/student.model';
 import { StudentService } from '../student.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'student-details',
@@ -17,7 +18,7 @@ export class StudentDetailsComponent implements OnInit {
 
   private _student?: Student;
   public get student(): Student | undefined { return this._student; }
-  @Input()
+  // @Input()
   public set student(value: Student | undefined) {
     this._student = value;
     if (this.student != undefined) {
@@ -62,8 +63,22 @@ export class StudentDetailsComponent implements OnInit {
 
   countAbsenceDays(id: number): number { return this._studentService.countAbsenceDays(id); }
 
-  constructor(private _studentService: StudentService) { }
+  constructor(private _studentService: StudentService, private _ac: ActivatedRoute) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this._ac.paramMap.subscribe(paramMap => {
+      console.log("in this._ac.paramMap.subscribe(paramMap => {");
+
+      if (paramMap.has("id")) {
+
+        console.log("in this._ac.paramMap.subscribe(paramMap => { -------------- in if :)");
+        let studentId = (paramMap.get("id"));
+        console.log('studentId ', studentId);
+        let id: number = +(studentId || "");
+        console.log('id ', id);
+        this.student = this._studentService.getStudentByIdFromServer(id);
+      }
+    })
+  }
 
 }
